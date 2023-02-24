@@ -1,7 +1,8 @@
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { NavLink, Outlet } from 'react-router-dom'
+import { Bars3Icon, BellIcon, UserCircleIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Navigate, NavLink, Outlet } from 'react-router-dom'
+import { userStateContext } from '../contexts/ContextProvider'
 
 const user = {
   name: 'Tom Cook',
@@ -24,6 +25,11 @@ function classNames(...classes: string[]) {
 }
 
 export default function DefaultLayout() {
+  const { currentUser, userToken } = userStateContext()
+
+  if (!userToken) {
+    return <Navigate to='/login'/>
+  }
   const logout = (e: any) => {
     e.preventDefault()
     console.log('hii....');
@@ -71,7 +77,8 @@ export default function DefaultLayout() {
                         <div>
                           <Menu.Button className="flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                             <span className="sr-only">Open user menu</span>
-                            <img className="h-8 w-8 rounded-full" src={user.imageUrl} alt="" />
+                            <img className="h-8 w-8 rounded-full" src={currentUser.imageUrl} alt="" />
+                            {/* <UserCircleIcon className='w-10 h-10 text-white'/> */}
                           </Menu.Button>
                         </div>
                         <Transition
@@ -132,11 +139,11 @@ export default function DefaultLayout() {
                 <div className="border-t border-gray-700 pt-4 pb-3">
                   <div className="flex items-center px-5">
                     <div className="flex-shrink-0">
-                      <img className="h-10 w-10 rounded-full" src={user.imageUrl} alt="" />
+                      <img className="h-10 w-10 rounded-full" src={currentUser.imageUrl} alt="" />
                     </div>
                     <div className="ml-3">
-                      <div className="text-base font-medium leading-none text-white">{user.name}</div>
-                      <div className="text-sm font-medium leading-none text-gray-400">{user.email}</div>
+                      <div className="text-base font-medium leading-none text-white">{currentUser.name}</div>
+                      <div className="text-sm font-medium leading-none text-gray-400">{currentUser.email}</div>
                     </div>
                   </div>
                   <div className="mt-3 space-y-1 px-2">

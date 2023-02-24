@@ -1,7 +1,14 @@
 import { LockClosedIcon } from '@heroicons/react/20/solid'
-import { Outlet } from 'react-router-dom'
+import { Navigate, Outlet } from 'react-router-dom'
+import { userStateContext } from '../contexts/ContextProvider'
 
 const GuestLayout = () => {
+  const { currentUser, userToken } = userStateContext()
+
+  if (userToken) {
+    return <Navigate to='/'/>
+  }
+
   return (
     <>
       <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
