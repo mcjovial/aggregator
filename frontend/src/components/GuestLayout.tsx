@@ -1,9 +1,9 @@
 import { LockClosedIcon } from '@heroicons/react/20/solid'
 import { Navigate, Outlet } from 'react-router-dom'
-import { userStateContext } from '../contexts/ContextProvider'
+import { useStateContext } from '../contexts/ContextProvider'
 
 const GuestLayout = () => {
-  const { currentUser, userToken } = userStateContext()
+  const { currentUser, userToken } = useStateContext()
 
   if (userToken) {
     return <Navigate to='/'/>

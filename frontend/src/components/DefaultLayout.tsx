@@ -2,7 +2,7 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, UserCircleIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Navigate, NavLink, Outlet } from 'react-router-dom'
-import { userStateContext } from '../contexts/ContextProvider'
+import { useStateContext } from '../contexts/ContextProvider'
 
 const user = {
   name: 'Tom Cook',
@@ -25,7 +25,7 @@ function classNames(...classes: string[]) {
 }
 
 export default function DefaultLayout() {
-  const { currentUser, userToken } = userStateContext()
+  const { currentUser, userToken } = useStateContext()
 
   if (!userToken) {
     return <Navigate to='/login'/>
