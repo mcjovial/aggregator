@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 
 interface IPageComponent {
   title: string;
-  buttons?: string;
+  buttons?: any;
   children: any
 }
 
