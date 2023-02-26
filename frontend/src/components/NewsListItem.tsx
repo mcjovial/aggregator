@@ -1,42 +1,43 @@
 import { ArrowTopRightOnSquareIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
-import React, { FC } from 'react'
+import { FC } from 'react';
 import TButton from './core/TButton';
 
-interface ISurveyItem {
+interface INewsItem {
   id: number;
   image_url: string;
   title: string;
   slug: string;
   description: string;
 }
-interface ISurveyProps {
-  survey: ISurveyItem
+interface INewsProps {
+  news: INewsItem
   onDeleteClick: () => void;
 }
-const SurveyListItem:FC<ISurveyProps> = ({survey, onDeleteClick}) => {
+
+const NewsListItem:FC<INewsProps> = ({news, onDeleteClick}) => {
   return (
     <div className='flex flex-col py-4 px-6 shadow-md bg-white hover:bg-gray-50 h-[470px]'>
       <img
-        src={survey.image_url}
-        alt={survey.title}
+        src={news.image_url}
+        alt={news.title}
         className='w-full h-48 object-cover'
       />
-      <h4 className='mt-4 text-lg font-bold'>{survey.title}</h4>
+      <h4 className='mt-4 text-lg font-bold'>{news.title}</h4>
       <div
-        dangerouslySetInnerHTML={{ __html: survey.description }}
+        dangerouslySetInnerHTML={{ __html: news.description }}
         className='overflow-hidden flex-1'
       ></div>
 
       <div className='flex justify-between items-center mt-3'>
-        <TButton to={`surveys/${survey.id}`}>
+        <TButton to={`news/${news.id}`}>
           <PencilIcon className='w-5 h-5 mr-2' />
           Edit
         </TButton>
         <div className='flex items-center'>
-          <TButton href={`/view/surveys/${survey.slug}`} circle link>
+          <TButton href={`/view/news/${news.slug}`} circle link>
             <ArrowTopRightOnSquareIcon className='w-5 h-5' />
           </TButton>
-          {survey.id && (
+          {news.id && (
             <TButton onClick={onDeleteClick} circle link color="red">
               <TrashIcon className='w-5 h-5' />
             </TButton>
@@ -47,4 +48,4 @@ const SurveyListItem:FC<ISurveyProps> = ({survey, onDeleteClick}) => {
   )
 }
 
-export default SurveyListItem
+export default NewsListItem
