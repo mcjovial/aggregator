@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, SetStateAction, useContext, useState } from "react";
 
 interface IUser {
   name?: string;
@@ -8,10 +8,10 @@ interface IUser {
 
 const StateContext = createContext({
   currentUser: {} as IUser,
-  userToken: null,
+  userToken: '',
   surveys: [],
-  setCurrentUser: () => { },
-  setUserToken: () => { },
+  setCurrentUser: (any: any) => { },
+  setUserToken: (any: any) => { },
   setSurveys: () => { }
 })
 
@@ -189,8 +189,17 @@ export const ContextProvider = ({ children }: any) => {
     email: 'tom@example.com',
     imageUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
   })
-  const [userToken, setUserToken] = useState<string>('null')
+  const [userToken, _setUserToken] = useState<string>(localStorage.getItem('TOKEN') || '')
   const [surveys, setSurveys] = useState([...tmpSurveys])
+
+  const setUserToken = (token: string) => {
+    if (token) {
+      localStorage.setItem('TOKEN', token)
+    } else {
+      localStorage.removeItem('TOKEN')
+    }
+    _setUserToken(token);
+  }
 
   return (
     <StateContext.Provider value={{

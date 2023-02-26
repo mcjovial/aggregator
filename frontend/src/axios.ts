@@ -2,21 +2,24 @@ import axios from "axios";
 import router from "./router";
 
 const axiosClient = axios.create({
-  baseURL: `${import.meta.env.VITE_API_BASE_URL}/api`
-})
+  baseURL: `${import.meta.env.VITE_API_BASE_URL}/api`,
+});
 
 axiosClient.interceptors.request.use((request) => {
-  const token = 123   //TODO:
-  request.headers.Authorization = `Bearer ${token}`
-})
+  request.headers.Authorization = `Bearer ${localStorage.getItem('TOKEN')}`
+  return request
+});
 
-axios.interceptors.response.use((response) => {
-  return response
-}, (error) => {
+axiosClient.interceptors.response.use(response => {
+  return response;
+}, error => {
   if (error.response && error.response.status === 401) {
-    router.navigate('/login')
-    return error
+    localStorage.removeItem('TOKEN')
+    window.location.reload();
+    // router.navigate('/login')
+    return error;
   }
+  throw error;
 })
 
-export default axiosClient
+export default axiosClient;
