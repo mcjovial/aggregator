@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\NewsApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +18,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/me', [AuthController::class, 'me']);
+    Route::get('/everything', [NewsApiController::class, 'everything']);
+    Route::get('/sources', [NewsApiController::class, 'sources']);
+    Route::get('/feed', [NewsApiController::class, 'feed']);
+    Route::post('/feed', [NewsApiController::class, 'createFeed']);
+    Route::post('/filter',[NewsApiController::class,'filter']);
 });
 
 Route::post('/signup', [AuthController::class, 'signup']);
