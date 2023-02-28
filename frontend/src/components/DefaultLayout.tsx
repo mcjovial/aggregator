@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import { Fragment, useEffect } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, UserCircleIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Navigate, NavLink, Outlet } from 'react-router-dom'
@@ -12,8 +12,8 @@ const user = {
     'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
 }
 const navigation = [
-  { name: 'Dashboard', href: '/dashboard' },
-  { name: 'Surveys', href: '/surveys' },
+  { name: 'Home', href: '/home' },
+  { name: 'Feed', href: '/feed' },
 ]
 const userNavigation = [
   { name: 'Your Profile', href: '#' },
@@ -33,10 +33,17 @@ export default function DefaultLayout() {
   }
   const logout = (e: any) => {
     e.preventDefault()
-    axiosClient.post("/logout").then((res) => {
+    axiosClient.post("/logout").then(() => {
       setCurrentUser({});
       setUserToken(null);
-    });  }
+    });
+  }
+  useEffect(() => {
+    axiosClient.get('/me')
+      .then(({ data }) => {
+        setCurrentUser(data)
+      })
+  }, [])
   
   return (
     <>

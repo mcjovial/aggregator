@@ -7,6 +7,7 @@ import Signup from "./views/Signup";
 import Surveys from "./views/Feed";
 import SurveyView from "./views/SurveyView";
 import Feed from "./views/Feed";
+import Home from "./views/Home";
 
 const router = createBrowserRouter([
   {
@@ -15,7 +16,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <Navigate to="/feed" />
+        element: <Navigate to="/home" />
+      },
+      {
+        path: '/home',
+        element: <Home />
       },
       {
         path: '/feed',

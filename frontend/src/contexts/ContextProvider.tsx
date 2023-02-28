@@ -9,10 +9,10 @@ interface IUser {
 const StateContext = createContext({
   currentUser: {} as IUser,
   userToken: '',
-  news: [],
+  // news: [],
   setCurrentUser: (any: any) => { },
   setUserToken: (any: any) => { },
-  setNews: () => { }
+  // setNews: () => { }
 })
 
 const newsData: never[] = []
@@ -24,7 +24,7 @@ export const ContextProvider = ({ children }: any) => {
     imageUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
   })
   const [userToken, _setUserToken] = useState<string>(localStorage.getItem('TOKEN') || '')
-  const [news, setNews] = useState([...newsData])
+  // const [news, setNews] = useState([...newsData])
 
   const setUserToken = (token: string) => {
     if (token) {
@@ -41,7 +41,8 @@ export const ContextProvider = ({ children }: any) => {
       setCurrentUser,
       userToken,
       setUserToken,
-      news,
+      // setNews
+      // news,
     }}>
       {children}
     </StateContext.Provider>
