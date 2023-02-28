@@ -25,8 +25,11 @@ const FeedItem: FC<IFeedItemProps> = ({ id, title, image_url, author, date, desc
         <div className='flex justify-between w-full items-center gap-8 h-80'>
           <div className='w-1/2 relative'>
             <img className='w-full' src={image_url} alt="" />
-            <div className='bg-gray-100 w-40 absolute bottom-0 left-3 text-xs p-3'>
-              <p className='font-bold'>By {author}</p>
+            <div className='bg-gray-100 w-40 absolute bottom-3 left-3 text-xs p-3'>
+              <p
+                className='font-bold'
+                dangerouslySetInnerHTML={{ __html: `By ${author}` }}
+              ></p>
               <p className='text-gray-400'>{ source }</p>
               <div className='flex mt-1'>
                 <ClockIcon className='w-4' />

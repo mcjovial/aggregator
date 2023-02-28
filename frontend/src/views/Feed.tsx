@@ -4,9 +4,14 @@ import { useEffect, useState } from 'react'
 import { INewsItem } from './Home'
 import axiosClient from '../axios'
 import dateFormat from 'dateformat'
+import Sources from '../components/Sources'
+import TButton from '../components/core/TButton'
+import { PlusCircleIcon } from '@heroicons/react/24/outline'
+import { useStateContext } from '../contexts/ContextProvider'
 
 const Feed = () => {
-  const [news, setNews] = useState<INewsItem[]>([])
+  const { setSources } = useStateContext();
+  const [news, setNews] = useState<INewsItem[]>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -22,15 +27,17 @@ const Feed = () => {
   return (
     <PageComponent
       title="News Feed"
-      // buttons={(
-      //   <TButton color='green' to='/newss/create'>
-      //     <PlusCircleIcon className='h-6 w-6 mr-2' />
-      //     Create new
-      //   </TButton>
-      // )}
-    >
+      buttons={(
+        <TButton color='green' onClick={()=>setSources(true)}>
+          <PlusCircleIcon className='h-6 w-6 mr-2' />
+          Sources
+        </TButton>
+        // <button on>Sources</button>
+      )}
+      >
+      <Sources />
       <div className=''>
-        {news.map((feed, i) => (
+        {news?.map((feed, i) => (
           <FeedItem
             key={i}
             title={feed.title} 
