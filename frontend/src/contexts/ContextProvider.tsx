@@ -1,4 +1,6 @@
 import { createContext, SetStateAction, useContext, useState } from "react";
+import { toast } from "react-toastify";
+import axiosClient from "../axios";
 
 interface IUser {
   name?: string;
@@ -10,9 +12,10 @@ const StateContext = createContext({
   currentUser: {} as IUser,
   userToken: '',
   sources: false,
-  setCurrentUser: (any: any) => { },
-  setUserToken: (any: any) => { },
-  setSources: (any: any)=> { }
+  setCurrentUser: (_any: any) => { },
+  setUserToken: (_any: any) => { },
+  setSources: (_any: any) => { },
+  subscribeFeed: (any: any) => {}
 })
 
 const newsData: never[] = []
@@ -34,6 +37,17 @@ export const ContextProvider = ({ children }: any) => {
     }
     _setUserToken(token);
   }
+  
+  const subscribeFeed = (e: any, _id: string, _category: string) => {
+    e.preventDefault()
+    console.log('hey....', _id);
+    axiosClient.post('/feed', {
+      category: _category,
+      selected_source_id: _id
+    })
+    setSources(false)
+    toast.success("Your personalised feed is set successfully")
+  }
 
   return (
     <StateContext.Provider value={{
@@ -43,6 +57,7 @@ export const ContextProvider = ({ children }: any) => {
       setUserToken,
       setSources,
       sources,
+      subscribeFeed,
     }}>
       {children}
     </StateContext.Provider>

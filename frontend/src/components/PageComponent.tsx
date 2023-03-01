@@ -4,10 +4,11 @@ import React, { FC } from 'react'
 interface IPageComponent {
   title: string;
   buttons?: any;
+  element?: any;
   children: any
 }
 
-const PageComponent: FC<IPageComponent> = ({ title, buttons = '', children }) => {
+const PageComponent: FC<IPageComponent> = ({ title, buttons = '', element, children }) => {
   const truncateString = (str: string, num: number) => {
     if (str.length <= num) {
       return str
@@ -20,6 +21,7 @@ const PageComponent: FC<IPageComponent> = ({ title, buttons = '', children }) =>
         <hr className='border-gray-400' />
         <div className="flex justify-between items-center mx-auto max-w-7xl py-4 px-4 sm:px-6 lg:px-8">
           <h1 className="text-3xl font-bold tracking-tight text-gray-900">{title}</h1>
+          <div>{ element }</div>
           <div className=''>
             {buttons}
           </div>

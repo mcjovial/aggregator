@@ -11,15 +11,6 @@ const Sources: FC = () => {
   const cancelButtonRef = useRef(null)
   const [sourceList, setSourceList] = useState<ISourceItem[]>([]);
 
-  const onSubscribe = (id: any, category: any) => {
-    axiosClient.post('/feed', {
-      category,
-      selected_source_id: id
-    })
-    setSources(false)
-    toast.success("Your personalised feed is set successfully")
-  }
-
   useEffect(() => {
     axiosClient.get('/sources').then(({ data }) => {
       console.log(data.sources)
@@ -70,7 +61,6 @@ const Sources: FC = () => {
                             country={src.country}
                             language={src.language}
                             description={src.description}
-                            onclick={onSubscribe}
                           />
                         ))}
                       </div>

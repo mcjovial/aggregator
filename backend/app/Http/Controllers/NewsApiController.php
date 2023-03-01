@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Http;
 
 class NewsApiController extends Controller
 {
-    private $api_key = '07c0870b6be949a1aa2ae0516fa840cd';
+    private $api_key = '5446082a8939421d911559e492ce9185';
     public function everything(){
         $saved_feed = User::find(auth()->user()->id)->feed;
         $query = '?apiKey='.$this->api_key.'&sortBy=popularity&pageSize=20&page=1';
@@ -59,17 +59,9 @@ class NewsApiController extends Controller
         if($keyword){
             $query .= '&q='.$keyword;
         }
-        $saved_feed = User::find(auth()->user()->id)->my_feed;
+        $saved_feed = User::find(auth()->user()->id)->feed;
         if($saved_feed){
             $query.='&sources='.$saved_feed->source_id;
-        }
-        if($request->date_from){
-            $date_from = Carbon::parse($request->date_from)->setTimezone('Africa/Lagos')->format('Y-m-d');
-            $query.='&from='.$date_from;
-        }
-        if($request->date_to){
-            $date_to = Carbon::parse($request->date_to)->setTimezone('Africa/Lagos')->format('Y-m-d');
-            $query.= '&to='.$date_to;
         }
 
         // return $query;
