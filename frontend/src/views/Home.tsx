@@ -15,6 +15,7 @@ export interface INewsItem {
     id: string;
     name: string;
   }
+  content: string;
 }
 
 const Home = () => {
@@ -42,6 +43,7 @@ const Home = () => {
             author={feed.author}
             date={dateFormat(feed.publishedAt, "mmmm dS, yyyy")}
             source={feed.source.name}
+            content={feed.content}
           />
         ))}
       </div>

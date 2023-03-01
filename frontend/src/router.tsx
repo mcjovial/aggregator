@@ -8,6 +8,7 @@ import Surveys from "./views/Feed";
 import SurveyView from "./views/SurveyView";
 import Feed from "./views/Feed";
 import Home from "./views/Home";
+import NewsDetails from "./components/NewsDetails";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: '/feed',
         element: <Feed />
+      },
+      {
+        path: '/news-detail',
+        element: <NewsDetails />
       },
     ]
   },

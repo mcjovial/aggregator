@@ -77,6 +77,7 @@ const Feed = () => {
             author={feed.author}
             date={dateFormat(feed.publishedAt, "mmmm dS, yyyy")}
             source={feed.source.name}
+            content={feed.content}
           />
         ))}
       </div>

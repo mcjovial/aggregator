@@ -12,10 +12,12 @@ const StateContext = createContext({
   currentUser: {} as IUser,
   userToken: '',
   sources: false,
+  newsDetail: {},
   setCurrentUser: (_any: any) => { },
   setUserToken: (_any: any) => { },
   setSources: (_any: any) => { },
-  subscribeFeed: (any: any) => {}
+  subscribeFeed: (any: any) => {},
+  setNewsDetail: (any: any) => {},
 })
 
 const newsData: never[] = []
@@ -28,6 +30,7 @@ export const ContextProvider = ({ children }: any) => {
   })
   const [userToken, _setUserToken] = useState<string>(localStorage.getItem('TOKEN') || '')
   const [sources, setSources] = useState<boolean>(false)
+  const [newsDetail, setNewsDetail] = useState({})
 
   const setUserToken = (token: string) => {
     if (token) {
@@ -58,6 +61,8 @@ export const ContextProvider = ({ children }: any) => {
       setSources,
       sources,
       subscribeFeed,
+      newsDetail,
+      setNewsDetail,
     }}>
       {children}
     </StateContext.Provider>
